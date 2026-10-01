@@ -1,0 +1,28 @@
+{
+  "name": "@floor1/sdk",
+  "version": "0.1.0",
+  "description": "Buy, sell, quote, and mint Floor1 tokens on Giwa.",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "engines": { "node": ">=20" },
+  "files": ["lib", "README.md", "LICENSE"],
+  "exports": { ".": { "types": "./lib/index.d.ts", "import": "./lib/index.js" } },
+  "types": "./lib/index.d.ts",
+  "main": "./lib/index.js",
+  "repository": { "type": "git", "url": "git+https://github.com/Floor1dotfun/floor1-sdk.git" },
+  "homepage": "https://docs.floor1.fun",
+  "bugs": "https://github.com/Floor1dotfun/floor1-sdk/issues",
+  "publishConfig": { "access": "public", "provenance": true },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "docs:build": "node docs/build.mjs",
+    "docs:dev": "node docs/serve.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "e2e": "npm run build && npm run docs:build && node tests/e2e.mjs",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run e2e"
+  },
+  "dependencies": { "viem": "^2.56.9" },
+  "devDependencies": { "@playwright/test": "^1.63.0", "typescript": "^6.0.3" }
+}

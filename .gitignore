@@ -1,0 +1,9 @@
+node_modules
+lib/
+dist/
+test-results/
+*.tgz
+.env*
+.DS_Store
+.vercel/
+.vercel

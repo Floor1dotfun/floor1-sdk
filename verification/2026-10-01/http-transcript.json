@@ -1,0 +1,370 @@
+[
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "101"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1000",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "101"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1000",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "102"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "sell",
+      "amount": "2000",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  },
+  {
+    "url": "/api/v1/trading/quotes",
+    "method": "POST",
+    "headers": {
+      "host": "127.0.0.1:52949",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "accept-language": "*",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "pragma": "no-cache",
+      "cache-control": "no-cache",
+      "accept-encoding": "gzip, deflate",
+      "content-length": "98"
+    },
+    "body": {
+      "token": "0x1111111111111111111111111111111111111111",
+      "side": "buy",
+      "amount": "1",
+      "slippageBps": 100
+    }
+  }
+]
