@@ -1,0 +1,5 @@
+verification/
+tests/
+test-results/
+lib/
+*.tgz

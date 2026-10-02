@@ -1,0 +1,100 @@
+[
+  {
+    "id": "@floor1/sdk@0.1.0",
+    "name": "@floor1/sdk",
+    "version": "0.1.0",
+    "size": 8020,
+    "unpackedSize": 26526,
+    "shasum": "4194e2ce7c320fc74e53f38c126d4fcd96aa2a4e",
+    "integrity": "sha512-RP3rkyVWPXZf9D4Z3FAaFEOV3TCdgnILWhE+c8kjzhhBFydrKbce1wxb3YjcsuCFdzi0r7kaXfnyq/29SCfvFQ==",
+    "filename": "floor1-sdk-0.1.0.tgz",
+    "files": [
+      {
+        "path": "LICENSE",
+        "size": 1063,
+        "mode": 420
+      },
+      {
+        "path": "README.md",
+        "size": 3559,
+        "mode": 420
+      },
+      {
+        "path": "lib/client.d.ts",
+        "size": 531,
+        "mode": 420
+      },
+      {
+        "path": "lib/client.js",
+        "size": 3422,
+        "mode": 420
+      },
+      {
+        "path": "lib/contracts.d.ts",
+        "size": 5278,
+        "mode": 420
+      },
+      {
+        "path": "lib/contracts.js",
+        "size": 1541,
+        "mode": 420
+      },
+      {
+        "path": "lib/errors.d.ts",
+        "size": 265,
+        "mode": 420
+      },
+      {
+        "path": "lib/errors.js",
+        "size": 325,
+        "mode": 420
+      },
+      {
+        "path": "lib/index.d.ts",
+        "size": 483,
+        "mode": 420
+      },
+      {
+        "path": "lib/index.js",
+        "size": 309,
+        "mode": 420
+      },
+      {
+        "path": "lib/transactions.d.ts",
+        "size": 1362,
+        "mode": 420
+      },
+      {
+        "path": "lib/transactions.js",
+        "size": 5936,
+        "mode": 420
+      },
+      {
+        "path": "lib/types.d.ts",
+        "size": 1327,
+        "mode": 420
+      },
+      {
+        "path": "lib/types.js",
+        "size": 11,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 1114,
+        "mode": 420
+      }
+    ],
+    "entryCount": 15,
+    "bundled": []
+  }
+]
+
+
+> @floor1/sdk@0.1.0 prepack
+> npm run build
+
+
+> @floor1/sdk@0.1.0 build
+> tsc -p tsconfig.json
+
