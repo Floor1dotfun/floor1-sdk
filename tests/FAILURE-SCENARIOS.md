@@ -25,3 +25,15 @@ Written before the search metadata change.
 - The IndexNow key file is missing or does not contain the key; robots.txt stops allowing crawl or loses the sitemap.
 - The 404 page becomes indexable.
 - New links to www.floor1.fun guides break, or the page source link points at a branch other than `main`.
+
+## Cut corners (2 October 2026)
+
+Written before the cut-corner restyle.
+
+- A control or surface keeps a rounded corner: buttons, the app and primary links, theme and menu buttons, copy controls, the search trigger, close button and shortcut key, guide cards, code blocks, callouts, endpoints, tables, the search dialog, the version badge, the active sidebar item, inline code or search results.
+- A clip-path cuts a border at the corners without a visible diagonal edge or corner accent, so the cut looks like a rendering fault rather than intent.
+- Clipping hides the keyboard focus outline, or the focus outline is thicker or a different color than the app's 1px primary outline.
+- A clipped element hides content: the hero copy button, table headers, wide tables that scroll horizontally, code that scrolls, or search results.
+- The light theme loses contrast on cut edges or accents, or either theme leaves the approved purple palette.
+- Corner accents cover text, or a background layer added for the accents replaces a surface's existing background color or gradient.
+- Mobile header controls overflow at 390px, or any route gains horizontal page overflow.
