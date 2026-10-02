@@ -67,6 +67,15 @@ export function parseMintReceipt(logs: readonly Log[]) {
   return event ? { token: event.args.token, creator: event.args.creator, name: event.args.name, symbol: event.args.symbol, metadataUri: event.args.metadataURI, supply: event.args.supply, creatorTaxBps: event.args.creatorTaxBps } : null;
 }
 
+export function parseTradeReceipt(logs: readonly Log[], token: Address, trader: Address) {
+  const marketLogs = logs.filter(log => isAddressEqual(log.address, giwaSepolia.market));
+  const event = parseEventLogs({ abi: tradingAbi, eventName: "Trade", logs: marketLogs }).find(item => isAddressEqual(item.args.token, token) && isAddressEqual(item.args.trader, trader));
+  if (!event) return null;
+  const refund = parseEventLogs({ abi: tradingAbi, eventName: "BuyRefunded", logs: marketLogs }).find(item => isAddressEqual(item.args.token, token) && isAddressEqual(item.args.buyer, trader));
+  const { isBuy, quoteAmount, tokenAmount, protocolFee, creatorFee } = event.args;
+  return { token: event.args.token, trader: event.args.trader, side: isBuy ? "buy" as const : "sell" as const, quoteAmount, tokenAmount, amountOut: isBuy ? tokenAmount : quoteAmount, protocolFee, creatorFee, refund: refund?.args.refund ?? 0n };
+}
+
 export function decodeFloor1Revert(data: Hex) {
   for (const abi of [tradingAbi, mintingAbi]) {
     try { return decodeErrorResult({ abi, data }).errorName; }

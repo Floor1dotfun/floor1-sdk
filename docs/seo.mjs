@@ -34,6 +34,10 @@ export const search = {
     title: 'Memecoin Metadata Format on Arweave | Floor1 SDK',
     description: 'The JSON document and image a Floor1 token launch references on Arweave: name, symbol, description, image and website, X and Telegram links.',
   },
+  mcp: {
+    title: 'Floor1 MCP Server: Let AI Agents Trade Giwa Memecoins',
+    description: 'Add @floor1/mcp to Claude Code or any MCP client so agents can quote, buy, sell and launch Floor1 tokens on Giwa with your own key and spending caps.',
+  },
   sdk: {
     title: '@floor1/sdk TypeScript API Reference | Floor1 SDK',
     description: 'Complete reference for @floor1/sdk: createFloor1Client, quote, buy, sell and mint, the prepare transaction builders, ABIs, receipt parsing and error types.',
