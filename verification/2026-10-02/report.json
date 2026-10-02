@@ -131,7 +131,7 @@
     }
   ],
   "tarball": "floor1-sdk-0.1.0.tgz",
-  "sha256": "c54d01a314ff4449ca2d08cfd756473a23428542925b06d22fbb3bc54a358f1b",
+  "sha256": "0b92e8add63c9e024de68248edf71160daa6a3d38016b616051d9b89af91d3f3",
   "coverage": "Packed consumer → quote HTTP → decoded wallet submission boundary, mint receipt parsing, built documentation browser journeys. No real chain transactions.",
   "reproduce": "npm ci && npx playwright install chromium && npm run e2e",
   "artifacts": [

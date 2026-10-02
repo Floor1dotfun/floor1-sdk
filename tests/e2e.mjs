@@ -37,7 +37,7 @@ try {
  sha256=createHash('sha256').update(await readFile(tarball)).digest('hex');
  await check('Packed package contains only the public SDK',async()=>{
   assert(manifest.files.every(f=>f.path.startsWith('lib/')||['README.md','LICENSE','package.json'].includes(f.path)));
-  for(const f of manifest.files.filter(f=>f.path.startsWith('lib/')))assert(!/createPublicClient|readContract|quoteCurve|INGEST_INTERNAL|SITE_PASSWORD|candles|sepolia-rpc/.test(await readFile(resolve(root,f.path),'utf8')));
+  for(const f of manifest.files.filter(f=>f.path.startsWith('lib/')))assert(!/createPublicClient|readContract|quoteCurve|process\.env|candles|sepolia-rpc/.test(await readFile(resolve(root,f.path),'utf8')));
  });
  const consumer=await mkdtemp(resolve(tmpdir(),'floor1-sdk-consumer-'));
  await writeFile(resolve(consumer,'package.json'),JSON.stringify({private:true,type:'module'}));

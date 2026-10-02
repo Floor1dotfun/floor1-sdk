@@ -23,7 +23,7 @@ const { hash } = await floor1.buy({ token, amount: parseEther('0.01'), slippageB
 - `prepareBuy`, `prepareSell`, `prepareSellApproval`, and `prepareMint` for custom transaction senders.
 - `parseMintReceipt`, `decodeFloor1Revert`, minimal contract ABIs, and deployment constants.
 
-There are no candles, market feeds, holders, portfolios, token discovery, private APIs, or ingest services. Selling requires an explicit allowance; approval is never automatic. Minting launches a new token using metadata already uploaded to Arweave.
+The package covers trading and minting only; it has no charts, market feeds, holder lists, portfolios or token discovery. Selling requires an explicit allowance; approval is never automatic. Minting launches a new token using metadata already uploaded to Arweave.
 
 ## Develop
 
@@ -52,13 +52,4 @@ Artifacts: `test-results/e2e/report.json`, `trace.zip`, desktop/mobile screensho
 
 ## Release
 
-Do not publish the private app workspace package. This repository owns the public package.
-
-1. Merge the reviewed SDK and Floor1 API PRs.
-2. Deploy the fee-parameter migration and ingest worker before the public quote API. Enrich existing tokens once through the signed internal client. The public endpoint never starts enrichment or falls back to RPC.
-3. Run the E2E command against the deployed quote endpoint and an active testnet token.
-4. Rebuild the docs for the verified version.
-5. Publish the reviewed package from CI using npm trusted publishing, or authenticate with an npm account authorized for `@floor1/sdk`. No npm token is committed.
-6. Deploy the static `dist/` documentation build and connect `docs.floor1.fun`. DNS uses Vercel nameservers; do not replace the root domain records.
-
-No workflow in this repository publishes automatically.
+Publishing runs `npm run e2e` first (`prepublishOnly`). No npm token is stored in this repository.

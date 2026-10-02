@@ -14,7 +14,7 @@ export const pages = [
  `<div class="capability-strip"><span>TypeScript + ESM</span><span>Wallet signed</span><span>Giwa Sepolia</span></div>` +
  cards([['/buy/','01','Buy tokens','Turn native ETH into Floor1 tokens with a fresh quote and explicit slippage.'],['/sell/','02','Sell tokens','Approve an exact amount and sell tokens back to native ETH.'],['/mint/','03','Mint a token','Create a Floor1 token with your metadata and creator fee share.']]) +
  h('first-quote','Your first quote') + code(`import { createFloor1Client } from '@floor1/sdk';\nimport { parseEther } from 'viem';\n\nconst floor1 = createFloor1Client();\n\nconst quote = await floor1.quote({\n  token: '${token}',\n  side: 'buy',\n  amount: parseEther('0.01'),\n  slippageBps: 100,\n});\n\nconsole.log(quote.amountOut, quote.minimumOut);`.replaceAll('\\n','\n')) +
- note('A focused public SDK','Buy, sell, quotes, and minting. Charts, candles, holder lists, portfolios, token discovery, and internal services are outside this package.') +
+ note('A focused SDK','Buy, sell, quotes, and minting. Charts, holder lists, portfolios and token discovery are outside this package.') +
  h('choose-your-path','Choose your integration') + table(['Need','Start with'],[['A price before signing','<a href="/quotes/">Quotes</a>'],['A wallet-integrated app','<a href="/quickstart/">Quickstart</a>'],['Your own transaction sender','<a href="/sdk/">Transaction builders</a>'],['A bot or another language','<a href="/http/">HTTP reference</a>']]) +
  note('Giwa Sepolia','SDK v0.1.0 supports Giwa Sepolia, chain 91342. Connect a testnet wallet and keep all amounts in atomic units.'),
  toc:[['first-quote','Your first quote'],['choose-your-path','Choose your integration']]
@@ -76,7 +76,7 @@ export const pages = [
  table(['Property','Meaning'],[['name / symbol','Match the name and ticker passed to mint.'],['description','Token description; keep it within 500 characters.'],['image','ar:// URI of the uploaded image.'],['links.website','Optional HTTPS URL.'],['links.x','Optional HTTPS link on x.com or twitter.com.'],['links.telegram','Optional HTTPS link on t.me.']])+
  h('uri','Arweave URIs')+p('Arweave transaction IDs contain 43 URL-safe characters: letters, numbers, underscores, or hyphens. Prefix the ID with ar:// when passing metadataUri to mint. Replace all example placeholders with real uploaded transaction IDs.')+
  h('verify','Verify before minting')+p('Check that both uploads resolve through an Arweave gateway and that the JSON references the intended image. Permanent uploads are not edited in place. The SDK validates the URI shape, while the uploader and gateway handle upload confirmation and availability.')+
- note('Keep uploads in your app','This public package contains no upload endpoints, permanent-storage credentials, or private launch API client. You can integrate the storage provider you already use.'),
+ note('Keep uploads in your app','This package does not upload files or hold storage credentials. You can integrate the storage provider you already use.'),
  toc:[['format','Document format'],['uri','Arweave URIs'],['verify','Verify before minting']]
 },
 {
@@ -87,7 +87,7 @@ export const pages = [
  h('utilities','Utilities and constants')+table(['Export','Purpose'],[['parseMintReceipt(logs)','Read a Launched event from the configured factory.'],['decodeFloor1Revert(data)','Decode a known market or factory error; unknown data returns null.'],['Floor1Error','Typed SDK/API error with code, status, and retryAfterSeconds.'],['giwaSepolia','Chain ID, market, factory, WETH, and explorer URL.'],['tradingAbi / mintingAbi / approvalAbi','Minimal ABIs for the supported calls and events.']])+
  h('types','Exported types')+code('TradeSide, QuoteParams, TradeParams, Quote, PreparedTransaction,\nMintParams, Floor1ClientOptions, RequestOptions, SendOptions, TradeResult','TypeScript')+
  h('cancellation','Cancellation')+p('Pass an AbortSignal to cancel an in-flight quote request. The signal is checked before wallet submission. It cannot cancel a wallet confirmation already opened or a transaction already broadcast. Wallet errors retain their original type.')+
- note('Package boundary','There are no candle, market-feed, account, discovery, ingestion, or curve-reading modules and no private infrastructure configuration in this package.'),
+ note('Package boundary','The package contains quotes, transaction builders, receipt parsing, ABIs and deployment constants. It has no chart, market-feed, account or discovery modules and no configuration beyond the public quote endpoint.'),
  toc:[['client','Client'],['builders','Transaction builders'],['utilities','Utilities'],['types','Types'],['cancellation','Cancellation']]
 },
 {
@@ -112,7 +112,7 @@ export const pages = [
  body:note('Giwa Sepolia','v0.1.0 supports Giwa Sepolia only. These are testnet deployments. There is no mainnet deployment exported by this release.')+
  h('network','Network')+table(['Property','Value'],[['Network','Giwa Sepolia'],['Chain ID','91342'],['Native asset','ETH, 18 decimals'],['Token decimals','18'],['Explorer','<a href="https://sepolia-explorer.giwa.io" target="_blank" rel="noreferrer">sepolia-explorer.giwa.io ↗</a>']])+
  h('contracts','Contracts')+table(['Contract','Address'],[['Bonding market','<code>0xf154266Eea85710479fa85D562D2CB86f70CE6e6</code>'],['Token factory','<code>0x0182cdd2eE61409f809D55668C350Ca0Ab0a4355</code>'],['WETH','<code>0x4200000000000000000000000000000000000006</code>']])+
- h('connection','Wallet connection')+p('Provide your own wallet or injected EIP-1193 provider. The package contains no RPC URLs, RPC client, chain polling, or infrastructure credentials. The wallet and your existing receipt provider handle broadcasting and confirmation. Native ETH is wrapped or unwrapped by the market for buys and sells.')+
+ h('connection','Wallet connection')+p('Provide your own wallet or injected EIP-1193 provider. The package contains no RPC URLs, RPC client or credentials. The wallet and your existing receipt provider handle broadcasting and confirmation. Native ETH is wrapped or unwrapped by the market for buys and sells.')+
  h('scope','Supported lifecycle')+p('Bonding-curve trading supports active Floor1 tokens quoted in WETH. Ready-for-graduation and graduated curves cannot use these buy/sell methods. Minting creates a new token with the configured factory. Routing through external pools after graduation is outside this SDK.')+
  h('setup','Wallet setup and safety')+p('To add Giwa Sepolia to a wallet and get free test ETH, follow the <a href="https://www.floor1.fun/guides/giwa-sepolia">Giwa Sepolia setup guide</a>. Giwa mainnet is not supported by this release; before adding any other Giwa network, read the <a href="https://www.floor1.fun/guides/giwa-scam-safety">Giwa scam safety guide</a>.'),
  toc:[['network','Network'],['contracts','Contracts'],['connection','Wallet connection'],['scope','Supported lifecycle'],['setup','Wallet setup and safety']]
