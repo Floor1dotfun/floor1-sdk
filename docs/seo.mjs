@@ -42,6 +42,10 @@ export const search = {
     title: 'Floor1 Quote API: Public HTTP Reference for Giwa Tokens',
     description: 'POST /api/v1/trading/quotes on www.floor1.fun returns exact-input buy and sell quotes for Floor1 tokens on Giwa. No API key, CORS enabled, read only.',
   },
+  'market-api': {
+    title: 'Floor1 Market API: Public Giwa Token Data over HTTP',
+    description: 'Read Floor1 token lists, prices, candles, trades and holders on Giwa from public, CDN-cached HTTP endpoints. No API key. OpenAPI 3.1 description included.',
+  },
   errors: {
     title: 'Errors, Reverts & Retries | Floor1 SDK for Giwa',
     description: 'Every Floor1 SDK and API error code, decoded contract reverts and the safe recovery for each, from wrong-chain wallets to expired quotes and rate limits.',

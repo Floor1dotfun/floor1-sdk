@@ -34,7 +34,7 @@ npm run docs:build
 npm run docs:dev
 ```
 
-Preview: http://127.0.0.1:4173. The static documentation build is prepared for `docs.floor1.fun`. Search, syntax highlighting, copy controls, Markdown exports, responsive navigation, and both themes run locally without third-party scripts.
+Preview: http://127.0.0.1:4173. The static documentation build is prepared for `docs.floor1.fun`. Search, syntax highlighting, copy controls, Markdown exports, responsive navigation, and both themes run locally without third-party scripts. The build also writes `openapi.json` for the public market reads and quote endpoint, `llms.txt` and `llms-full.txt`. Every page links its Markdown mirror, and requesting a page with `Accept: text/markdown` returns that mirror; the local server applies the same `vercel.json` rules.
 
 ## Verify
 
@@ -48,7 +48,7 @@ npm run e2e
 
 The suite packs the SDK, installs that tarball in a clean temporary consumer, then exercises quote HTTP requests, transaction construction, wallet submission, approvals, mint receipts, and failure handling. Wallet submission is exercised through a deterministic fixture wallet; this suite does not submit real chain transactions. It also runs the built docs at desktop and mobile sizes, checks navigation, search, copying, themes, local links, Markdown exports, and screenshots.
 
-Artifacts: `test-results/e2e/report.json`, `trace.zip`, desktop/mobile screenshots, the exact `.tgz`, its SHA-256, and the fixture HTTP transcript. These are uploaded by CI. Set `FLOOR1_API_URL` and `FLOOR1_TEST_TOKEN` to a local running Floor1 API to additionally exercise a quote against that service.
+Artifacts: `test-results/e2e/report.json`, `trace.zip`, desktop/mobile screenshots, the exact `.tgz`, its SHA-256, and the fixture HTTP transcript. These are uploaded by CI. Set `FLOOR1_API_URL` and `FLOOR1_TEST_TOKEN` to a local running Floor1 API to additionally exercise a quote against that service. Set `FLOOR1_LIVE_API=1` to validate live public API responses against `openapi.json`.
 
 ## Release
 

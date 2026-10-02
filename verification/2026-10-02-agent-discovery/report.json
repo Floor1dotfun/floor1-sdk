@@ -1,0 +1,172 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Packed package contains only the public SDK",
+      "pass": true
+    },
+    {
+      "name": "Clean consumer imports the exact public exports",
+      "pass": true
+    },
+    {
+      "name": "Published declarations typecheck in a clean consumer",
+      "pass": true
+    },
+    {
+      "name": "Quote roundtrip sends the exact request without credentials",
+      "pass": true
+    },
+    {
+      "name": "Buy builds local calldata and reaches the wallet boundary",
+      "pass": true
+    },
+    {
+      "name": "Sell uses zero value and never approves implicitly",
+      "pass": true
+    },
+    {
+      "name": "Approval targets the token and authorizes only the exact amount",
+      "pass": true
+    },
+    {
+      "name": "Mint builds a factory launch with Arweave metadata and zero value",
+      "pass": true
+    },
+    {
+      "name": "Mint receipt parsing ignores another factory",
+      "pass": true
+    },
+    {
+      "name": "Invalid inputs fail before HTTP or wallet submission",
+      "pass": true
+    },
+    {
+      "name": "Wrong wallet chain fails before requesting a quote",
+      "pass": true
+    },
+    {
+      "name": "Tampered token cannot reach wallet signing",
+      "pass": true
+    },
+    {
+      "name": "Tampered side cannot reach wallet signing",
+      "pass": true
+    },
+    {
+      "name": "Tampered chainId cannot reach wallet signing",
+      "pass": true
+    },
+    {
+      "name": "Tampered amount cannot reach wallet signing",
+      "pass": true
+    },
+    {
+      "name": "Tampered minimumOut cannot reach wallet signing",
+      "pass": true
+    },
+    {
+      "name": "Tampered fee cannot reach wallet signing",
+      "pass": true
+    },
+    {
+      "name": "Tampered amountOut cannot reach wallet signing",
+      "pass": true
+    },
+    {
+      "name": "Tampered slippageBps cannot reach wallet signing",
+      "pass": true
+    },
+    {
+      "name": "Tampered issuedAt cannot reach wallet signing",
+      "pass": true
+    },
+    {
+      "name": "Malformed and expired responses are rejected",
+      "pass": true
+    },
+    {
+      "name": "Rate limit errors preserve status and Retry-After",
+      "pass": true
+    },
+    {
+      "name": "Aborting a quote preserves cancellation",
+      "pass": true
+    },
+    {
+      "name": "Wallet rejection passes through without a second submission",
+      "pass": true
+    },
+    {
+      "name": "Every built docs route renders and all local links resolve",
+      "pass": true
+    },
+    {
+      "name": "Docs use the Floor1 purple brand tokens",
+      "pass": true
+    },
+    {
+      "name": "Search opens by keyboard and navigates to minting",
+      "pass": true
+    },
+    {
+      "name": "Code and page copy controls write real clipboard content",
+      "pass": true
+    },
+    {
+      "name": "Light theme persists after navigation",
+      "pass": true
+    },
+    {
+      "name": "Controls and surfaces use cut corners in both themes",
+      "pass": true
+    },
+    {
+      "name": "Mobile navigation opens and every route avoids page overflow",
+      "pass": true
+    },
+    {
+      "name": "Markdown exports and llms.txt are available",
+      "pass": true
+    },
+    {
+      "name": "Every page has distinct search metadata, structured data and a matching sitemap",
+      "pass": true
+    },
+    {
+      "name": "Market API page, OpenAPI description and llms files are linked and valid",
+      "pass": true
+    },
+    {
+      "name": "Every page advertises and serves its Markdown mirror by Accept negotiation",
+      "pass": true
+    },
+    {
+      "name": "Small favicons replace the full-size brand image",
+      "pass": true
+    },
+    {
+      "name": "Live public API responses match the OpenAPI description exactly",
+      "pass": true
+    }
+  ],
+  "tarball": "floor1-sdk-0.1.0.tgz",
+  "sha256": "f2e8a0e4d2d0e81b4c245971640d5b6adfd8283e0be9bb09196eadab12e6c36d",
+  "coverage": "Packed consumer → quote HTTP → decoded wallet submission boundary, mint receipt parsing, built documentation browser journeys. No real chain transactions.",
+  "reproduce": "npm ci && npx playwright install chromium && npm run e2e (set FLOOR1_LIVE_API=1 to also check live public API responses against openapi.json)",
+  "artifacts": [
+    "trace.zip",
+    "seo.json",
+    "openapi.json",
+    "agent-discovery.json",
+    "live-api-contract.json",
+    "sitemap.xml",
+    "desktop-dark.png",
+    "desktop-light.png",
+    "mobile-home.png",
+    "mobile-mint.png",
+    "http-transcript.json",
+    "pack.log",
+    "consumer-install.log"
+  ]
+}

@@ -4,6 +4,7 @@
   "description": "Buy, sell, quote, and mint Floor1 tokens on Giwa.",
   "type": "module",
   "license": "MIT",
+  "keywords": ["floor1", "giwa", "upbit", "op-stack", "launchpad", "memecoin", "bonding-curve", "viem"],
   "sideEffects": false,
   "engines": { "node": ">=20" },
   "files": ["lib", "README.md", "LICENSE"],
@@ -24,5 +25,5 @@
     "prepublishOnly": "npm run e2e"
   },
   "dependencies": { "viem": "^2.56.9" },
-  "devDependencies": { "@playwright/test": "^1.63.0", "typescript": "^6.0.3" }
+  "devDependencies": { "@apidevtools/swagger-parser": "^13.0.0", "ajv": "^8.20.0", "@playwright/test": "^1.63.0", "typescript": "^6.0.3" }
 }
