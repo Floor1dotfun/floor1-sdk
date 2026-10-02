@@ -1,0 +1,1794 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Floor1 Public API",
+    "version": "1.0.0",
+    "summary": "Public market reads and exact-input quotes for Floor1 tokens on Giwa.",
+    "description": "Read-only market data indexed from Giwa Sepolia (chain 91342) and exact-input bonding-curve quotes. No API key, session or cookies. Market reads answer GET and HEAD and send no CORS headers; the quote endpoint supports CORS. Unknown or repeated query parameters return 400.",
+    "contact": {
+      "name": "Floor1",
+      "url": "https://github.com/Floor1dotfun/floor1-sdk/issues"
+    },
+    "license": {
+      "name": "MIT",
+      "identifier": "MIT"
+    }
+  },
+  "externalDocs": {
+    "description": "Market API and HTTP reference",
+    "url": "https://docs.floor1.fun/market-api/"
+  },
+  "servers": [
+    {
+      "url": "https://www.floor1.fun",
+      "description": "Production"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Market",
+      "description": "Public, CDN-cached reads of indexed on-chain data.",
+      "externalDocs": {
+        "url": "https://docs.floor1.fun/market-api/"
+      }
+    },
+    {
+      "name": "Trading",
+      "description": "Exact-input quotes for the bonding curve.",
+      "externalDocs": {
+        "url": "https://docs.floor1.fun/http/"
+      }
+    }
+  ],
+  "security": [],
+  "paths": {
+    "/api/v1/tokens": {
+      "get": {
+        "operationId": "listTokens",
+        "summary": "List tokens",
+        "description": "Paged token list. Pass nextCursor back unchanged for the next page.",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "List order.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "trending",
+                "new",
+                "holders",
+                "marketCap"
+              ],
+              "default": "trending"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by curve status.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "bonding",
+                "graduated"
+              ]
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageLimit"
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List tokens",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "listTokensHead",
+        "summary": "List tokens (headers only)",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "List order.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "trending",
+                "new",
+                "holders",
+                "marketCap"
+              ],
+              "default": "trending"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by curve status.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "bonding",
+                "graduated"
+              ]
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageLimit"
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List tokens",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/tokens/batch": {
+      "get": {
+        "operationId": "getTokenBatch",
+        "summary": "Tokens by id",
+        "description": "Tokens in request order. Duplicates are ignored and unknown ids are omitted.",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Comma-separated token addresses, 1 to 100.",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "example": "0x1111111111111111111111111111111111111111,0x2222222222222222222222222222222222222222"
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tokens by id",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenItems"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "getTokenBatchHead",
+        "summary": "Tokens by id (headers only)",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Comma-separated token addresses, 1 to 100.",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "example": "0x1111111111111111111111111111111111111111,0x2222222222222222222222222222222222222222"
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tokens by id",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/tokens/search": {
+      "get": {
+        "operationId": "searchTokens",
+        "summary": "Search tokens",
+        "description": "Case-insensitive symbol prefix or name match, ordered by symbol. Rate limited to 30 requests per 10 seconds per caller.",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search text, 1 to 64 characters after trimming.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "required": true
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum results.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20,
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search tokens",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenItems"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "searchTokensHead",
+        "summary": "Search tokens (headers only)",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search text, 1 to 64 characters after trimming.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "required": true
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum results.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20,
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search tokens",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/tokens/{id}": {
+      "get": {
+        "operationId": "getToken",
+        "summary": "Token detail",
+        "description": "One token with supply, read time and 24-hour stats.",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TokenId"
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token detail",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "getTokenHead",
+        "summary": "Token detail (headers only)",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TokenId"
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token detail",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/tokens/{id}/candles": {
+      "get": {
+        "operationId": "getCandles",
+        "summary": "Token candles",
+        "description": "Columnar OHLCV bars, ascending. Use either since or before, not both.",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TokenId"
+          },
+          {
+            "name": "interval",
+            "in": "query",
+            "description": "Bar interval.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "1m",
+                "5m",
+                "15m",
+                "1h",
+                "4h"
+              ],
+              "default": "5m"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum bars; the newest are returned.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10080,
+              "default": 500
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "description": "Only bars starting at or after this Unix millisecond time.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "description": "Older bars before this Unix millisecond time.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token candles",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CandleSeries"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "getCandlesHead",
+        "summary": "Token candles (headers only)",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TokenId"
+          },
+          {
+            "name": "interval",
+            "in": "query",
+            "description": "Bar interval.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "1m",
+                "5m",
+                "15m",
+                "1h",
+                "4h"
+              ],
+              "default": "5m"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum bars; the newest are returned.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10080,
+              "default": 500
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "description": "Only bars starting at or after this Unix millisecond time.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "description": "Older bars before this Unix millisecond time.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token candles",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/tokens/{id}/trades": {
+      "get": {
+        "operationId": "listTrades",
+        "summary": "Token trades",
+        "description": "Paged trades, newest first by block and log index.",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TokenId"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageLimit"
+          },
+          {
+            "name": "side",
+            "in": "query",
+            "description": "Only buys or only sells.",
+            "schema": {
+              "$ref": "#/components/schemas/TradeSide"
+            }
+          },
+          {
+            "name": "minUsd",
+            "in": "query",
+            "description": "Minimum trade size in USD.",
+            "schema": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token trades",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "listTradesHead",
+        "summary": "Token trades (headers only)",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TokenId"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageLimit"
+          },
+          {
+            "name": "side",
+            "in": "query",
+            "description": "Only buys or only sells.",
+            "schema": {
+              "$ref": "#/components/schemas/TradeSide"
+            }
+          },
+          {
+            "name": "minUsd",
+            "in": "query",
+            "description": "Minimum trade size in USD.",
+            "schema": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token trades",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/tokens/{id}/holders": {
+      "get": {
+        "operationId": "listHolders",
+        "summary": "Token holders",
+        "description": "Paged holders, largest balance first.",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TokenId"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageLimit"
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token holders",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HolderPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "listHoldersHead",
+        "summary": "Token holders (headers only)",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TokenId"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageLimit"
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token holders",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "x-floor1-version": {
+                "$ref": "#/components/headers/MarketVersion"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/versions": {
+      "get": {
+        "operationId": "getVersions",
+        "summary": "Market versions",
+        "description": "Change counters. list moves with any list change; each token entry moves when that token changes. Unknown tokens report 0.",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "name": "tokens",
+            "in": "query",
+            "description": "Comma-separated token addresses, at most 100.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Market versions",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketVersions"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "getVersionsHead",
+        "summary": "Market versions (headers only)",
+        "tags": [
+          "Market"
+        ],
+        "parameters": [
+          {
+            "name": "tokens",
+            "in": "query",
+            "description": "Comma-separated token addresses, at most 100.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Market versions",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/trading/quotes": {
+      "post": {
+        "operationId": "createQuote",
+        "summary": "Exact-input quote",
+        "tags": [
+          "Trading"
+        ],
+        "description": "Computes an exact-input buy or sell quote from indexed curve state. Sends no transaction. Unknown body fields are rejected; the body is limited to 2048 bytes. Rate limited to 40 requests per 10 seconds per caller. CORS is enabled with an OPTIONS preflight, and responses use Cache-Control: no-store.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuoteRequest"
+              },
+              "example": {
+                "token": "0x1111111111111111111111111111111111111111",
+                "side": "buy",
+                "amount": "10000000000000000",
+                "slippageBps": 100
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Quote",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "TokenId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "Token contract address.",
+        "schema": {
+          "$ref": "#/components/schemas/Address"
+        }
+      },
+      "Cursor": {
+        "name": "cursor",
+        "in": "query",
+        "description": "nextCursor from the previous page of the same endpoint and sort.",
+        "schema": {
+          "type": "string",
+          "maxLength": 256,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      },
+      "PageLimit": {
+        "name": "limit",
+        "in": "query",
+        "description": "Page size.",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 50
+        }
+      },
+      "Version": {
+        "name": "v",
+        "in": "query",
+        "description": "Version from /api/v1/versions or x-floor1-version. A current version lets the CDN share one cached answer.",
+        "schema": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "headers": {
+      "MarketVersion": {
+        "description": "Version of the list or token the response describes.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "CacheControl": {
+        "description": "Shared-cache lifetime chosen by the server.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "RetryAfter": {
+        "description": "Seconds to wait before retrying.",
+        "schema": {
+          "type": "integer"
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Invalid, unknown or repeated parameter, bad cursor, or invalid body.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Token is unknown.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Unprocessable": {
+        "description": "Inactive curve, unsupported asset, amount too small, or insufficient liquidity.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "RateLimited": {
+        "description": "Rate limit reached.",
+        "headers": {
+          "Retry-After": {
+            "$ref": "#/components/headers/RetryAfter"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Unavailable": {
+        "description": "Data or quote service temporarily unavailable.",
+        "headers": {
+          "Retry-After": {
+            "$ref": "#/components/headers/RetryAfter"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Address": {
+        "type": "string",
+        "pattern": "^0x[0-9a-fA-F]{40}$",
+        "example": "0x1111111111111111111111111111111111111111"
+      },
+      "TradeSide": {
+        "type": "string",
+        "enum": [
+          "buy",
+          "sell"
+        ]
+      },
+      "TokenSummary": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "symbol",
+          "image",
+          "priceUsd",
+          "marketCapUsd",
+          "priceQuote",
+          "marketCapQuote",
+          "change24h",
+          "holders",
+          "verified",
+          "graduated",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "name": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "description": "HTTPS gateway URL of the token image, or an empty string."
+          },
+          "priceUsd": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Price of one token in USD; null without an ETH/USD rate."
+          },
+          "marketCapUsd": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Market cap in USD; null without an ETH/USD rate."
+          },
+          "priceQuote": {
+            "type": "number",
+            "description": "Price of one token in ETH."
+          },
+          "marketCapQuote": {
+            "type": "number",
+            "description": "Market cap in ETH."
+          },
+          "change24h": {
+            "type": "number",
+            "description": "Price change over 24 hours, in percent."
+          },
+          "holders": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "graduated": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "integer",
+            "description": "Launch time, Unix milliseconds."
+          }
+        }
+      },
+      "TokenStats": {
+        "type": "object",
+        "required": [
+          "volume24hUsd",
+          "volume24hQuote",
+          "change",
+          "buys",
+          "sells",
+          "buyVolumeUsd",
+          "sellVolumeUsd",
+          "buyVolumeQuote",
+          "sellVolumeQuote"
+        ],
+        "properties": {
+          "volume24hUsd": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "24-hour volume in USD."
+          },
+          "volume24hQuote": {
+            "type": "number",
+            "description": "24-hour volume in ETH."
+          },
+          "change": {
+            "type": "object",
+            "required": [
+              "m5",
+              "h1",
+              "h4",
+              "d1"
+            ],
+            "description": "Price change in percent over 5 minutes, 1, 4 and 24 hours.",
+            "properties": {
+              "m5": {
+                "type": "number"
+              },
+              "h1": {
+                "type": "number"
+              },
+              "h4": {
+                "type": "number"
+              },
+              "d1": {
+                "type": "number"
+              }
+            }
+          },
+          "buys": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sells": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "buyVolumeUsd": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "24-hour buy volume in USD."
+          },
+          "sellVolumeUsd": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "24-hour sell volume in USD."
+          },
+          "buyVolumeQuote": {
+            "type": "number"
+          },
+          "sellVolumeQuote": {
+            "type": "number"
+          }
+        }
+      },
+      "TokenDetail": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/TokenSummary"
+          },
+          {
+            "type": "object",
+            "required": [
+              "supply",
+              "asOf",
+              "stats"
+            ],
+            "properties": {
+              "supply": {
+                "type": "number",
+                "description": "Total supply in whole tokens."
+              },
+              "asOf": {
+                "type": "integer",
+                "description": "Read time, Unix milliseconds."
+              },
+              "stats": {
+                "$ref": "#/components/schemas/TokenStats"
+              }
+            }
+          }
+        ]
+      },
+      "TokenPage": {
+        "type": "object",
+        "description": "One page of tokens.",
+        "required": [
+          "items",
+          "nextCursor",
+          "indexed"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TokenSummary"
+            }
+          },
+          "nextCursor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Opaque cursor for the next page; null when there are no more rows."
+          },
+          "indexed": {
+            "type": "boolean",
+            "description": "false when this data is not indexed yet; items is then empty."
+          }
+        }
+      },
+      "TokenItems": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TokenSummary"
+            }
+          }
+        }
+      },
+      "CandleSeries": {
+        "type": "object",
+        "required": [
+          "interval",
+          "t",
+          "o",
+          "h",
+          "l",
+          "c",
+          "v"
+        ],
+        "description": "Columnar bars, ascending. Prices are USD per token (8 significant digits) and volume is USD, unless unit is quote, in which case every value is in ETH.",
+        "properties": {
+          "interval": {
+            "type": "string",
+            "enum": [
+              "1m",
+              "5m",
+              "15m",
+              "1h",
+              "4h"
+            ]
+          },
+          "t": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "Bar start, Unix milliseconds."
+          },
+          "o": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "h": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "l": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "c": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "v": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "unit": {
+            "type": "string",
+            "const": "quote"
+          }
+        }
+      },
+      "TraderRef": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "color",
+          "friend"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "name": {
+            "type": "string",
+            "description": "Shortened address."
+          },
+          "color": {
+            "type": "string",
+            "description": "Display color, #rrggbb."
+          },
+          "friend": {
+            "type": "boolean",
+            "description": "Viewer field; always false on public reads."
+          }
+        }
+      },
+      "Trade": {
+        "type": "object",
+        "required": [
+          "id",
+          "trader",
+          "side",
+          "usd",
+          "quote",
+          "price",
+          "priceQuote",
+          "time",
+          "mine"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Transaction hash and log index, joined by a colon."
+          },
+          "trader": {
+            "$ref": "#/components/schemas/TraderRef"
+          },
+          "side": {
+            "$ref": "#/components/schemas/TradeSide"
+          },
+          "usd": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Trade size in USD."
+          },
+          "quote": {
+            "type": "number",
+            "description": "Trade size in ETH."
+          },
+          "price": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Curve price after the trade, USD per token."
+          },
+          "priceQuote": {
+            "type": "number",
+            "description": "Curve price after the trade, ETH per token."
+          },
+          "time": {
+            "type": "integer",
+            "description": "Block time, Unix milliseconds."
+          },
+          "mine": {
+            "type": "boolean",
+            "description": "Viewer field; always false on public reads."
+          }
+        }
+      },
+      "TradePage": {
+        "type": "object",
+        "description": "One page of trades.",
+        "required": [
+          "items",
+          "nextCursor",
+          "indexed"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Trade"
+            }
+          },
+          "nextCursor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Opaque cursor for the next page; null when there are no more rows."
+          },
+          "indexed": {
+            "type": "boolean",
+            "description": "false when this data is not indexed yet; items is then empty."
+          }
+        }
+      },
+      "Holder": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/TraderRef"
+          },
+          {
+            "type": "object",
+            "required": [
+              "hold",
+              "quantity",
+              "entry",
+              "entryQuote",
+              "thesis",
+              "likes"
+            ],
+            "properties": {
+              "hold": {
+                "type": "string",
+                "description": "Time since the position opened, such as <1m, 45m, 6h or 3d."
+              },
+              "quantity": {
+                "type": "number",
+                "description": "Balance in whole tokens."
+              },
+              "entry": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Average entry price in USD per token."
+              },
+              "entryQuote": {
+                "type": "number",
+                "description": "Average entry price in ETH per token."
+              },
+              "thesis": {
+                "type": "string"
+              },
+              "likes": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        ]
+      },
+      "HolderPage": {
+        "type": "object",
+        "description": "One page of holders.",
+        "required": [
+          "items",
+          "nextCursor",
+          "indexed"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Holder"
+            }
+          },
+          "nextCursor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Opaque cursor for the next page; null when there are no more rows."
+          },
+          "indexed": {
+            "type": "boolean",
+            "description": "false when this data is not indexed yet; items is then empty."
+          }
+        }
+      },
+      "MarketVersions": {
+        "type": "object",
+        "required": [
+          "list",
+          "tokens"
+        ],
+        "properties": {
+          "list": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "tokens": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "QuoteRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "token",
+          "side",
+          "amount",
+          "slippageBps"
+        ],
+        "properties": {
+          "token": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "side": {
+            "$ref": "#/components/schemas/TradeSide"
+          },
+          "amount": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]{0,77}$",
+            "description": "Exact input in atomic units, below 2^256. Buy: wei of ETH. Sell: atomic token units."
+          },
+          "slippageBps": {
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 5000
+          }
+        }
+      },
+      "QuoteResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "chainId",
+          "token",
+          "side",
+          "mode",
+          "amount",
+          "slippageBps",
+          "amountOut",
+          "minimumOut",
+          "fee",
+          "protocolFee",
+          "creatorFee",
+          "issuedAt",
+          "expiresAt",
+          "snapshot"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Quote identifier."
+          },
+          "chainId": {
+            "type": "integer",
+            "const": 91342
+          },
+          "token": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "side": {
+            "$ref": "#/components/schemas/TradeSide"
+          },
+          "mode": {
+            "type": "string",
+            "const": "exact_in"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Requested input in atomic units."
+          },
+          "slippageBps": {
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 5000
+          },
+          "amountOut": {
+            "type": "string",
+            "description": "Estimated output in atomic units. Buy: token units. Sell: wei."
+          },
+          "minimumOut": {
+            "type": "string",
+            "description": "amountOut × (10000 − slippageBps) / 10000, rounded down."
+          },
+          "fee": {
+            "type": "string",
+            "description": "Total fee in wei."
+          },
+          "protocolFee": {
+            "type": "string",
+            "description": "Protocol fee in wei."
+          },
+          "creatorFee": {
+            "type": "string",
+            "description": "Creator fee in wei."
+          },
+          "issuedAt": {
+            "type": "integer",
+            "description": "Unix milliseconds."
+          },
+          "expiresAt": {
+            "type": "integer",
+            "description": "Unix milliseconds, 30 seconds after issuedAt."
+          },
+          "snapshot": {
+            "type": "object",
+            "required": [
+              "source",
+              "blockNumber",
+              "indexedAt",
+              "marketVersion"
+            ],
+            "properties": {
+              "source": {
+                "type": "string",
+                "const": "database"
+              },
+              "blockNumber": {
+                "type": "integer"
+              },
+              "indexedAt": {
+                "type": "integer",
+                "description": "Unix milliseconds."
+              },
+              "marketVersion": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "bad_request",
+                  "not_found",
+                  "unprocessable",
+                  "rate_limited",
+                  "unavailable",
+                  "internal"
+                ]
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

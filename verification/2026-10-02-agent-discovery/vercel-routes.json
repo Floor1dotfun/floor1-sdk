@@ -1,0 +1,133 @@
+[
+  {
+    "src": "^/\\.well-known(?:/.*)?$"
+  },
+  {
+    "src": "^/((?:[^/]+/)*[^/\\.]+)$",
+    "headers": {
+      "Location": "/$1/"
+    },
+    "status": 308
+  },
+  {
+    "src": "^/((?:[^/]+/)*[^/]+\\.\\w+)/$",
+    "headers": {
+      "Location": "/$1"
+    },
+    "status": 308
+  },
+  {
+    "src": "^/$",
+    "headers": {
+      "Vary": "Accept",
+      "Link": "</overview.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "continue": true
+  },
+  {
+    "src": "^(?:/([^/]+?))/$",
+    "headers": {
+      "Vary": "Accept",
+      "Link": "</$1.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "continue": true
+  },
+  {
+    "src": "^/$",
+    "headers": {
+      "X-Robots-Tag": "noindex",
+      "Link": "<https://docs.floor1.fun/>; rel=\"canonical\""
+    },
+    "continue": true,
+    "has": [
+      {
+        "type": "header",
+        "key": "accept",
+        "value": ".*text/markdown.*"
+      }
+    ]
+  },
+  {
+    "src": "^(?:/([^/]+?))/$",
+    "headers": {
+      "X-Robots-Tag": "noindex",
+      "Link": "<https://docs.floor1.fun/$1/>; rel=\"canonical\""
+    },
+    "continue": true,
+    "has": [
+      {
+        "type": "header",
+        "key": "accept",
+        "value": ".*text/markdown.*"
+      }
+    ]
+  },
+  {
+    "src": "^/overview\\.md$",
+    "headers": {
+      "X-Robots-Tag": "noindex",
+      "Link": "<https://docs.floor1.fun/>; rel=\"canonical\""
+    },
+    "continue": true
+  },
+  {
+    "src": "^(?:/((?!overview\\.md$)[a-z0-9-]+))\\.md$",
+    "headers": {
+      "X-Robots-Tag": "noindex",
+      "Link": "<https://docs.floor1.fun/$1/>; rel=\"canonical\""
+    },
+    "continue": true
+  },
+  {
+    "src": "^/_html(?:/(.*))$",
+    "headers": {
+      "X-Robots-Tag": "noindex"
+    },
+    "continue": true
+  },
+  {
+    "handle": "filesystem"
+  },
+  {
+    "src": "^/$",
+    "dest": "/overview.md",
+    "check": true,
+    "has": [
+      {
+        "type": "header",
+        "key": "accept",
+        "value": ".*text/markdown.*"
+      }
+    ]
+  },
+  {
+    "src": "^(?:/([^/]+?))/$",
+    "dest": "/$1.md",
+    "check": true,
+    "has": [
+      {
+        "type": "header",
+        "key": "accept",
+        "value": ".*text/markdown.*"
+      }
+    ]
+  },
+  {
+    "src": "^/$",
+    "dest": "/_html/index.html",
+    "check": true
+  },
+  {
+    "src": "^(?:/([^/]+?))/$",
+    "dest": "/_html/$1/index.html",
+    "check": true
+  },
+  {
+    "handle": "error"
+  },
+  {
+    "status": 404,
+    "src": "^(?!/api).*$",
+    "dest": "/404.html"
+  }
+]

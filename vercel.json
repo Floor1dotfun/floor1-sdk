@@ -4,5 +4,61 @@
   "buildCommand": "npm run docs:build",
   "outputDirectory": "dist",
   "installCommand": "npm ci",
-  "trailingSlash": true
+  "trailingSlash": true,
+  "rewrites": [
+    { "source": "/", "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }], "destination": "/overview.md" },
+    { "source": "/:slug/", "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }], "destination": "/:slug.md" },
+    { "source": "/", "destination": "/_html/index.html" },
+    { "source": "/:slug/", "destination": "/_html/:slug/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        { "key": "Vary", "value": "Accept" },
+        { "key": "Link", "value": "</overview.md>; rel=\"alternate\"; type=\"text/markdown\"" }
+      ]
+    },
+    {
+      "source": "/:slug/",
+      "headers": [
+        { "key": "Vary", "value": "Accept" },
+        { "key": "Link", "value": "</:slug.md>; rel=\"alternate\"; type=\"text/markdown\"" }
+      ]
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex" },
+        { "key": "Link", "value": "<https://docs.floor1.fun/>; rel=\"canonical\"" }
+      ]
+    },
+    {
+      "source": "/:slug/",
+      "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex" },
+        { "key": "Link", "value": "<https://docs.floor1.fun/:slug/>; rel=\"canonical\"" }
+      ]
+    },
+    {
+      "source": "/overview.md",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex" },
+        { "key": "Link", "value": "<https://docs.floor1.fun/>; rel=\"canonical\"" }
+      ]
+    },
+    {
+      "source": "/:slug((?!overview\\.md$)[a-z0-9-]+).md",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex" },
+        { "key": "Link", "value": "<https://docs.floor1.fun/:slug/>; rel=\"canonical\"" }
+      ]
+    },
+    {
+      "source": "/_html/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    }
+  ]
 }

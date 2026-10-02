@@ -1,0 +1,110 @@
+[
+  {
+    "name": "tokens",
+    "path": "/api/v1/tokens?limit=2&sort=new",
+    "status": 200,
+    "cacheControl": "public, max-age=0, s-maxage=5",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  },
+  {
+    "name": "tokens next page",
+    "path": "/api/v1/tokens?cursor=WyJsYXVuY2giLCIxNzkwNzc2MTE3MDAwMDAwIiwiMHg5MzZiNjYxZmJhMTg0ZTMyNTc0YjAxZDM2ZGUwMWQ0NGE5NDVkNTdhIl0&limit=2&sort=new",
+    "status": 200,
+    "cacheControl": "public, max-age=0, s-maxage=5",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  },
+  {
+    "name": "batch",
+    "path": "/api/v1/tokens/batch?ids=0x68ac2f73e41e7841f46ed393feac819b9eb527ff",
+    "status": 200,
+    "cacheControl": "public, max-age=0, s-maxage=5",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  },
+  {
+    "name": "search",
+    "path": "/api/v1/tokens/search?q=L1&limit=2",
+    "status": 200,
+    "cacheControl": "public, max-age=0, s-maxage=30",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  },
+  {
+    "name": "detail",
+    "path": "/api/v1/tokens/0x68ac2f73e41e7841f46ed393feac819b9eb527ff",
+    "status": 200,
+    "cacheControl": "public, max-age=0, s-maxage=3",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  },
+  {
+    "name": "candles",
+    "path": "/api/v1/tokens/0x68ac2f73e41e7841f46ed393feac819b9eb527ff/candles?interval=1h&limit=5",
+    "status": 200,
+    "cacheControl": "public, max-age=0, s-maxage=5",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  },
+  {
+    "name": "trades",
+    "path": "/api/v1/tokens/0x68ac2f73e41e7841f46ed393feac819b9eb527ff/trades?limit=2",
+    "status": 200,
+    "cacheControl": "public, max-age=0, s-maxage=3",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  },
+  {
+    "name": "holders",
+    "path": "/api/v1/tokens/0x68ac2f73e41e7841f46ed393feac819b9eb527ff/holders?limit=2",
+    "status": 200,
+    "cacheControl": "public, max-age=0, s-maxage=5",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  },
+  {
+    "name": "versions",
+    "path": "/api/v1/versions?tokens=0x68ac2f73e41e7841f46ed393feac819b9eb527ff",
+    "status": 200,
+    "cacheControl": "public, max-age=0, s-maxage=1",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  },
+  {
+    "name": "unknown parameter",
+    "path": "/api/v1/tokens?unknown=1",
+    "status": 400,
+    "cacheControl": "no-store",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  },
+  {
+    "name": "unknown token",
+    "path": "/api/v1/tokens/0x0000000000000000000000000000000000000001",
+    "status": 404,
+    "cacheControl": "no-store",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  },
+  {
+    "name": "quote",
+    "path": "/api/v1/trading/quotes",
+    "status": 200,
+    "cacheControl": "no-store",
+    "valid": true,
+    "errors": null,
+    "undocumented": []
+  }
+]

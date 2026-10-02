@@ -1,0 +1,206 @@
+[
+  {
+    "route": "/",
+    "mirror": "/overview.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</overview.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/>; rel=\"canonical\""
+    }
+  },
+  {
+    "route": "/quickstart/",
+    "mirror": "/quickstart.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</quickstart.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/quickstart/>; rel=\"canonical\""
+    }
+  },
+  {
+    "route": "/quotes/",
+    "mirror": "/quotes.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</quotes.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/quotes/>; rel=\"canonical\""
+    }
+  },
+  {
+    "route": "/buy/",
+    "mirror": "/buy.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</buy.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/buy/>; rel=\"canonical\""
+    }
+  },
+  {
+    "route": "/sell/",
+    "mirror": "/sell.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</sell.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/sell/>; rel=\"canonical\""
+    }
+  },
+  {
+    "route": "/mint/",
+    "mirror": "/mint.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</mint.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/mint/>; rel=\"canonical\""
+    }
+  },
+  {
+    "route": "/metadata/",
+    "mirror": "/metadata.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</metadata.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/metadata/>; rel=\"canonical\""
+    }
+  },
+  {
+    "route": "/sdk/",
+    "mirror": "/sdk.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</sdk.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/sdk/>; rel=\"canonical\""
+    }
+  },
+  {
+    "route": "/http/",
+    "mirror": "/http.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</http.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/http/>; rel=\"canonical\""
+    }
+  },
+  {
+    "route": "/market-api/",
+    "mirror": "/market-api.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</market-api.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/market-api/>; rel=\"canonical\""
+    }
+  },
+  {
+    "route": "/errors/",
+    "mirror": "/errors.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</errors.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/errors/>; rel=\"canonical\""
+    }
+  },
+  {
+    "route": "/network/",
+    "mirror": "/network.md",
+    "html": {
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "vary": "Accept",
+      "link": "</network.md>; rel=\"alternate\"; type=\"text/markdown\""
+    },
+    "markdown": {
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "vary": "Accept",
+      "robots": "noindex",
+      "link": "<https://docs.floor1.fun/network/>; rel=\"canonical\""
+    }
+  }
+]
