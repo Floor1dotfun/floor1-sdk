@@ -1,5 +1,5 @@
 import { decodeErrorResult, encodeFunctionData, isAddress, isAddressEqual, parseEventLogs, type Address, type Hex, type Log } from "viem";
-import { approvalAbi, giwaSepolia, mintingAbi, tradingAbi } from "./contracts.ts";
+import { approvalAbi, giwaSepolia, MAX_CREATOR_TAX_BPS, mintingAbi, tradingAbi } from "./contracts.ts";
 import { Floor1Error } from "./errors.ts";
 import type { MintParams, PreparedTransaction, Quote, QuoteParams } from "./types.ts";
 
@@ -27,10 +27,10 @@ export function validateQuote(value: unknown, expected?: ReturnType<typeof valid
   const malformed = () => { throw new Floor1Error("invalid_response", "The quote response is invalid."); };
   if (typeof q.id !== "string" || !q.id || q.chainId !== giwaSepolia.chainId || q.mode !== "exact_in" || typeof q.token !== "string" || !isAddress(q.token, { strict: false })) malformed();
   if (q.side !== "buy" && q.side !== "sell") malformed();
-  if (![q.amount, q.amountOut, q.minimumOut, q.fee, q.protocolFee, q.creatorFee].every(atomic)) malformed();
+  if (![q.amount, q.amountOut, q.minimumOut, q.fee, q.protocolFee, q.creatorFee, q.refund].every(atomic)) malformed();
   if (!Number.isInteger(q.slippageBps) || q.slippageBps < 10 || q.slippageBps > 5_000 || !timestamp(q.issuedAt) || !timestamp(q.expiresAt) || q.expiresAt <= q.issuedAt || q.expiresAt - q.issuedAt > 30_000 || q.issuedAt > Date.now() + 5_000) malformed();
   if (!q.snapshot || q.snapshot.source !== "database" || !timestamp(q.snapshot.blockNumber) || !timestamp(q.snapshot.indexedAt) || !timestamp(q.snapshot.marketVersion)) malformed();
-  if (BigInt(q.amount) === 0n || BigInt(q.amountOut) === 0n || BigInt(q.minimumOut) !== BigInt(q.amountOut) * BigInt(10_000 - q.slippageBps) / 10_000n || BigInt(q.fee) !== BigInt(q.protocolFee) + BigInt(q.creatorFee)) malformed();
+  if (BigInt(q.amount) === 0n || BigInt(q.amountOut) === 0n || BigInt(q.minimumOut) !== BigInt(q.amountOut) * BigInt(10_000 - q.slippageBps) / 10_000n || BigInt(q.fee) !== BigInt(q.protocolFee) + BigInt(q.creatorFee) || BigInt(q.refund) >= BigInt(q.amount) || (q.side === "sell" && BigInt(q.refund) !== 0n)) malformed();
   if (expected && (!isAddressEqual(q.token, expected.token) || q.side !== expected.side || q.amount !== expected.amount || q.slippageBps !== expected.slippageBps)) malformed();
   if (q.expiresAt <= Date.now()) throw new Floor1Error("quote_expired", "Request a fresh quote before trading.");
   return q;
@@ -55,16 +55,16 @@ export function prepareSellApproval(token: Address, amount: bigint): PreparedTra
 
 export function prepareMint(params: MintParams): PreparedTransaction {
   const name = params.name.trim();
-  const fee = params.creatorFeeShareBps ?? 0;
+  const tax = params.creatorTaxBps ?? 0;
   if (!name || name.length > 32 || !/^[A-Z0-9]{1,10}$/.test(params.symbol)) throw new Floor1Error("invalid_metadata", "Use a name of 1–32 characters and a ticker of 1–10 uppercase letters or numbers.");
   if (!/^ar:\/\/[A-Za-z0-9_-]{43}$/.test(params.metadataUri)) throw new Floor1Error("invalid_metadata", "Upload metadata to Arweave and pass its ar:// transaction URI.");
-  if (!Number.isInteger(fee) || fee < 0 || fee > 10_000) throw new Floor1Error("invalid_creator_fee", "Creator fee share must be between 0 and 10000 basis points.");
-  return { chainId: giwaSepolia.chainId, to: giwaSepolia.factory, data: encodeFunctionData({ abi: mintingAbi, functionName: "launch", args: [name, params.symbol, giwaSepolia.weth, params.metadataUri, fee] }), value: 0n };
+  if (!Number.isInteger(tax) || tax < 0 || tax > MAX_CREATOR_TAX_BPS) throw new Floor1Error("invalid_creator_tax", `Creator tax must be between 0 and ${MAX_CREATOR_TAX_BPS} basis points.`);
+  return { chainId: giwaSepolia.chainId, to: giwaSepolia.factory, data: encodeFunctionData({ abi: mintingAbi, functionName: "launch", args: [name, params.symbol, giwaSepolia.weth, params.metadataUri, tax] }), value: 0n };
 }
 
 export function parseMintReceipt(logs: readonly Log[]) {
   const [event] = parseEventLogs({ abi: mintingAbi, eventName: "Launched", logs: logs.filter(log => isAddressEqual(log.address, giwaSepolia.factory)) });
-  return event ? { token: event.args.token, creator: event.args.creator, name: event.args.name, symbol: event.args.symbol, metadataUri: event.args.metadataURI, supply: event.args.supply, creatorFeeShareBps: event.args.creatorFeeShareBps } : null;
+  return event ? { token: event.args.token, creator: event.args.creator, name: event.args.name, symbol: event.args.symbol, metadataUri: event.args.metadataURI, supply: event.args.supply, creatorTaxBps: event.args.creatorTaxBps } : null;
 }
 
 export function decodeFloor1Revert(data: Hex) {
