@@ -1,0 +1,52 @@
+{
+  "name": "@floor1/mcp",
+  "version": "0.1.0",
+  "description": "MCP server that lets AI agents quote, buy, sell and launch Floor1 tokens on Giwa.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "floor1",
+    "giwa",
+    "mcp",
+    "model-context-protocol",
+    "agents",
+    "launchpad",
+    "memecoin",
+    "bonding-curve"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "floor1-mcp": "dist/server.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Floor1dotfun/floor1-sdk.git",
+    "directory": "mcp"
+  },
+  "homepage": "https://docs.floor1.fun/mcp/",
+  "bugs": "https://github.com/Floor1dotfun/floor1-sdk/issues",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@ardrive/turbo-sdk": "^2.1.0",
+    "@modelcontextprotocol/sdk": "^1.31.0",
+    "viem": "^2.56.9",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43"
+  }
+}

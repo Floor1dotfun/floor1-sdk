@@ -25,6 +25,16 @@ const { hash } = await floor1.buy({ token, amount: parseEther('0.01'), slippageB
 
 There are no candles, market feeds, holders, portfolios, token discovery, private APIs, or ingest services. Selling requires an explicit allowance; approval is never automatic. Minting launches a new token using metadata already uploaded to Arweave.
 
+## MCP server for agents
+
+`@floor1/mcp` (in [`mcp/`](mcp/)) gives AI agents `floor1_quote`, `floor1_buy`, `floor1_sell`, `floor1_approve`, `floor1_mint` and read tools over the Model Context Protocol. It runs locally, signs with your key, and enforces spending caps, slippage limits, local rate limits and the Arweave free-tier check before launches.
+
+```sh
+claude mcp add floor1 -e FLOOR1_PRIVATE_KEY=0x… -e FLOOR1_RPC_URL=https://your-giwa-sepolia-rpc -- npx -y @floor1/mcp
+```
+
+See [mcp/README.md](mcp/README.md) and https://docs.floor1.fun/mcp/.
+
 ## Develop
 
 ```sh
@@ -45,6 +55,8 @@ npm ci
 npx playwright install chromium
 npm run e2e
 ```
+
+The MCP suite also needs [Foundry](https://getfoundry.sh) (`anvil` and `forge` on `PATH`). To run only it: `npm run build && node tests/mcp-e2e.mjs`. It writes `test-results/e2e/mcp/report.json`, the full JSON-RPC transcript, server stderr, the recorded API and uploader requests, and the packed `@floor1/mcp` tarball with its SHA-256.
 
 The suite packs the SDK, installs that tarball in a clean temporary consumer, then exercises quote HTTP requests, transaction construction, wallet submission, approvals, mint receipts, and failure handling. Wallet submission is exercised through a deterministic fixture wallet; this suite does not submit real chain transactions. It also runs the built docs at desktop and mobile sizes, checks navigation, search, copying, themes, local links, Markdown exports, and screenshots.
 

@@ -52,3 +52,28 @@ Written before the Market API page, OpenAPI description and Markdown negotiation
 - Static files shadow the content negotiation because a stale build left HTML at the public path.
 - The favicon is missing, oversized, or the header logo still downloads the full-size brand image.
 - Package keywords are lost, or the change publishes the package.
+
+## MCP server (2 October 2026)
+
+Written before the `@floor1/mcp` server and its E2E suite.
+
+- The private key appears in a tool result, an error message, stdout, stderr or a saved transcript. Search every recorded byte for the key and its unprefixed form.
+- The server writes anything other than JSON-RPC to stdout and corrupts the stdio transport.
+- A read tool is not marked read-only, or a tool that sends a transaction, approves or uploads is not marked destructive, so the client skips its confirmation.
+- The RPC is on another chain and a transaction is signed for it. Check the RPC chain ID before any read or send, and reject anything other than 91342.
+- An agent passes an amount as a number, a negative, an exponent, hex, more than 18 decimals, zero, or a value above uint256, and it is silently rounded or reinterpreted. Accept only plain decimal strings and reject the rest before any request.
+- A buy exceeds the per-trade ETH cap or the rolling daily cap, slippage exceeds the configured maximum, or the token is outside a configured allowlist, and the transaction still reaches the wallet.
+- Two write tools run at once and race on the nonce or the daily cap. Allow one transaction in flight per wallet.
+- An agent loops on a tool and floods the public API, the RPC or the uploader. Enforce local buckets for quotes, market reads, transactions and mints, and refuse with a retry time instead of queueing.
+- The API answers 429 and the server retries in a loop or ignores Retry-After. Wait once for a short Retry-After, retry once, then surface the error.
+- A sell is sent without enough allowance and burns gas on a revert. Check the allowance first and return a clear error; never approve as a side effect.
+- A sell or buy reverts and the agent only sees a generic failure. Decode Slippage, NotActive, Paused and the other contract errors, before sending and from a mined receipt.
+- A trade result reports the quote instead of the fill. Read the actual amounts from the market's Trade event emitted for this token and trader only.
+- Without a key, a write tool fails or signs anything. Return unsigned transactions in prepare-only mode, and refuse uploads that need a signer.
+- `dry_run` still sends a transaction or uploads data.
+- A mint uploads an image that is too large, not an image, or claims a different type than its bytes; or metadata that the Floor1 app would reject.
+- The uploader's free allowance (105 KiB per item, 10 MiB per wallet and 10 MiB per network address, lifetime) cannot cover the launch, and the server pays without permission or uploads half the launch first. Check the wallet's remaining free bytes for both items before the first upload, refuse unless paid uploads are enabled, and explain the caps when the uploader refuses anyway.
+- An upload succeeds but the mint fails, and the agent re-uploads on retry. Return the uploaded URIs so a retry can pass the metadata URI directly.
+- A mint receipt is parsed from another factory, or a trade fill from another market or trader.
+- Market reads expose private routes or send credentials. Use only the public token search and token detail reads, without cookies, and cache identical reads briefly.
+- The package bundles private app code, RPC URLs or credentials, or the SDK package starts shipping MCP code.
