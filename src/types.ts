@@ -16,12 +16,13 @@ export type Quote = {
   fee: string;
   protocolFee: string;
   creatorFee: string;
+  refund: string;
   issuedAt: number;
   expiresAt: number;
   snapshot: { source: "database"; blockNumber: number; indexedAt: number; marketVersion: number };
 };
 export type PreparedTransaction = { chainId: number; to: Address; data: Hex; value: bigint };
-export type MintParams = { name: string; symbol: string; metadataUri: `ar://${string}`; creatorFeeShareBps?: number };
+export type MintParams = { name: string; symbol: string; metadataUri: `ar://${string}`; creatorTaxBps?: number };
 export type Floor1ClientOptions = { baseUrl?: string; fetch?: typeof globalThis.fetch; wallet?: WalletClient };
 export type RequestOptions = { signal?: AbortSignal };
 export type SendOptions = RequestOptions & { wallet?: WalletClient; account?: Address };

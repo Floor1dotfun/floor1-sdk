@@ -52,6 +52,6 @@ export const search = {
   },
   network: {
     title: 'Giwa Sepolia Network & Floor1 Contract Addresses | Floor1 SDK',
-    description: 'Giwa Sepolia chain ID 91342, the explorer, and the Floor1 bonding market and token factory contract addresses supported by @floor1/sdk v0.1.0.',
+    description: 'Giwa Sepolia chain ID 91342, the explorer, and the Floor1 bonding market and token factory contract addresses supported by @floor1/sdk v0.2.0.',
   },
 };

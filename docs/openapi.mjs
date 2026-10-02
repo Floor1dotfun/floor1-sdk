@@ -249,7 +249,7 @@ export const openapi = {
       QuoteRequest: quoteRequest,
       QuoteResponse: {
         type: 'object',
-        required: ['id', 'chainId', 'token', 'side', 'mode', 'amount', 'slippageBps', 'amountOut', 'minimumOut', 'fee', 'protocolFee', 'creatorFee', 'issuedAt', 'expiresAt', 'snapshot'],
+        required: ['id', 'chainId', 'token', 'side', 'mode', 'amount', 'slippageBps', 'amountOut', 'minimumOut', 'fee', 'protocolFee', 'creatorFee', 'refund', 'issuedAt', 'expiresAt', 'snapshot'],
         properties: {
           id: { type: 'string', description: 'Quote identifier.' },
           chainId: { type: 'integer', const: 91342 },
@@ -263,6 +263,7 @@ export const openapi = {
           fee: { type: 'string', description: 'Total fee in wei.' },
           protocolFee: { type: 'string', description: 'Protocol fee in wei.' },
           creatorFee: { type: 'string', description: 'Creator fee in wei.' },
+          refund: { type: 'string', description: 'Wei refunded because a buy would pass the graduation threshold; 0 otherwise.' },
           issuedAt: { type: 'integer', description: 'Unix milliseconds.' },
           expiresAt: { type: 'integer', description: 'Unix milliseconds, 30 seconds after issuedAt.' },
           snapshot: {

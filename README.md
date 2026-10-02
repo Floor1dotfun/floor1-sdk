@@ -4,7 +4,7 @@ A focused TypeScript SDK for buying, selling, quotes, and minting Floor1 tokens 
 
 [Documentation](https://docs.floor1.fun) · [npm package](https://www.npmjs.com/package/@floor1/sdk)
 
-v0.1.0 supports Giwa Sepolia (testnet), chain 91342.
+v0.2.0 supports Giwa Sepolia (testnet), chain 91342.
 
 ```ts
 import { createFloor1Client } from '@floor1/sdk';

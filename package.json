@@ -1,6 +1,6 @@
 {
   "name": "@floor1/sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Buy, sell, quote, and mint Floor1 tokens on Giwa.",
   "type": "module",
   "license": "MIT",
